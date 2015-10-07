@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script type='text/javascript'> 
+
+
+
+window.fbAsyncInit = function() {
+FB.init({
+appId      : '1493880287579514',
+cookie     : true,  // enable cookies to allow the server to access
+// the session
+xfbml      : true,  // parse social plugins on this page
+version    : 'v2.2' // use version 2.2
+});
+}
+
+
+
+// ※「アクセストークン取得までの流れ」での解説を参照
+var client_id = '1493880287579514'; // 【client_id】
+//var redirect_uri='http://localhost:3000/login';
+if (window.location.hash.length == 0) {
+    
+    // Facebook認証後のリダイレクトによるアクセスではない場合
+    // （= URLに "#" がない場合）
+    
+    // Facebook認証に遷移
+    // 例；
+    // Facebook未ログインの場合 → Facebookログイン画面を表示
+    // Facebookログイン済 + アプリを許可済の場合
+    // → "redirect_uri" に指定したURLに、"#" + アクセストークンが
+    // 付加されてリダイレクトされる
+
+	FB.init({
+appId      : '1493880287579514',
+cookie     : true,  // enable cookies to allow the server to access
+// the session
+xfbml      : true,  // parse social plugins on this page
+version    : 'v2.2' // use version 2.2
+});
+
+	var url = 'https://www.facebook.com/dialog/oauth'
+            + '?client_id=' + client_id
+	    + '&redirect_uri=' +'http://localhost:3000/login/'
+	    + '&response_type=token'
+            + '&scope=publish_stream,read_stream'
+            + '&display=popup';
+    location.href = url;
+    
+} else {
+    
+    if (window.location.search.length == 0) {
+        
+        // Facebook認証成功の場合
+        
+        // "redirect_uri" に指定したURLに、"#" + アクセストークンが
+        // 付加されてリダイレクトされる
+        alert(window.location.hash.substring(1));
+        
+    } else {
+    
+        // アクセス拒否の場合
+        
+        // Facebookアプリのインストール / 権限許可の画面で
+        // "キャンセル" ボタンを押す等した場合、
+        // "redirect_uri" に指定したURLにGETパラメータ
+        // "error" "error_reason" "error_description"
+        // が付加されてリダイレクトされる
+        alert(window.location.search.substring(1));
+    }
+}
+</script> 
+</head>
+<body>
+GET FACEBOOK GRAPH
+</body>
+</html>
